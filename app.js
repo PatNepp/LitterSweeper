@@ -25,6 +25,22 @@ function createBoard() {
         grid.appendChild(square)
         squares.push(square)
     }
+
+    for(let i = 0; i < squares.length; i++) {
+        let total = 0
+        const isLeftEdge = (i % width === 0)
+        const isRightEdge = (i % width === width - 1)
+
+        if(squares[i].classList.contains('valid')) {
+            if(i > 9 && squares[i - width].classList.contains('turd')) total++
+            if(i < 89 && squares[i + width].classList.contains('turd')) total++
+            if(i > 9 && !isLeftEdge && squares[i - 1 - width].classList.contains('turd')) total++
+            if(i > 0 && !isLeftEdge && squares[i - 1].classList.contains('turd')) total++
+            if(i > 9 && !isRightEdge && squares[i + 1 - width].classList.contains('turd')) total ++
+            if(i < 99 && !isRightEdge && squares[i + 1].classList.contains('turd')) total++
+            if(i < 89 && !isRightEdge && squares[i + 1 + width].classList.contains('turd')) total++
+        }
+    }
 }
 
 createBoard()
