@@ -11,6 +11,18 @@
     width: 40px;;
 }
 
+.checked {
+    background-color: sandybrown;
+}
+
 .turd {
     background-color: orange;
+}
+
+.valid {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 20px;
 }

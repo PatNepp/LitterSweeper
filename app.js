@@ -24,6 +24,10 @@ function createBoard() {
         //put in grid
         grid.appendChild(square)
         squares.push(square)
+
+        square.addEventListener('click', (e) => {
+            click(e.target)
+        })
     }
 
     for(let i = 0; i < squares.length; i++) {
@@ -32,15 +36,37 @@ function createBoard() {
         const isRightEdge = (i % width === width - 1)
 
         if(squares[i].classList.contains('valid')) {
-            if(i > 9 && squares[i - width].classList.contains('turd')) total++
-            if(i < 89 && squares[i + width].classList.contains('turd')) total++
-            if(i > 9 && !isLeftEdge && squares[i - 1 - width].classList.contains('turd')) total++
-            if(i > 0 && !isLeftEdge && squares[i - 1].classList.contains('turd')) total++
+            if(i > 11 && !isLeftEdge && squares[i - 1 - width].classList.contains('turd')) total++
+            if(i > 10 && squares[i - width].classList.contains('turd')) total++
             if(i > 9 && !isRightEdge && squares[i + 1 - width].classList.contains('turd')) total ++
             if(i < 99 && !isRightEdge && squares[i + 1].classList.contains('turd')) total++
-            if(i < 89 && !isRightEdge && squares[i + 1 + width].classList.contains('turd')) total++
+            if(i < 89 && squares[i + 1 + width].classList.contains('turd')) total++
+            if(i < 90 && squares[i + width].classList.contains('turd')) total ++
+            if(i < 89 && !isLeftEdge && squares[i - 1 + width].classList.contains('turd')) total++
+            if(i > 0 && !isLeftEdge && squares[i - 1].classList.contains('turd')) total++
+            squares[i].setAttribute('data', total)
         }
     }
 }
 
 createBoard()
+
+function click(square) {
+    // if (isGameOver) return
+
+    if(square.classList.contains('turd')) {
+        square.style.backgroundColor = 'brown'
+        alert('You found a turd! NO!')
+        location.reload()
+    }
+    if(square.classList.contains('valid')) {
+        const data = square.getAttribute('data')
+        
+        if(data > 0) {
+            square.classList.add('checked')
+            square.innerText = data
+            return
+        }
+        square.classList.add('checked')
+    }
+}
